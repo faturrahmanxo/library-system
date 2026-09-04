@@ -1,19 +1,13 @@
 # Library System
 
----
-
 # 🎯 Description
 Simple Library Information System. Aplikasi ini dibangun untuk mempermudah pengelolaan operasional perpustakaan, mulai dari manajemen pendataan buku, pendaftaran anggota, hingga pencatatan transaksi peminjaman dan pengembalian buku secara terkomputerisasi.
-
----
 
 # ⚙️ Requirements
 - PHP
 - Composer
 - MySQL
 - Laravel
-
----
 
 ## Installation
 1. Clone repository ini.
@@ -33,8 +27,6 @@ Simple Library Information System. Aplikasi ini dibangun untuk mempermudah penge
     (`php artisan serve`)
 9. Aplikasi sekarang dapat diakses melalui.
     (`http://localhost:8000`)
-
-  ---
 
   # Author
   Habib Iqbal Faturrahman - _You Can Call Me_ **Fatur**
