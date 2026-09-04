@@ -12,7 +12,7 @@ Simple Library Information System. Aplikasi ini dibangun untuk mempermudah penge
 ## Installation
 1. Clone repository ini.
    ```bash
-   git clone [https://github.com/username-kamu/library-system.git](https://github.com/username-kamu/library-system.git)
+   git clone https://github.com/faturrahmanxo/library-system.git
 2. Masuk ke dalam direktori project.
    (`cd library-system`)
 3. Install semua dependensi PHP melalui Composer.
