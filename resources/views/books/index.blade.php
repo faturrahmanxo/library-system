@@ -7,20 +7,22 @@
     <p>{{ $description }}</p>
 
     {{-- {{ route('buku') }} --}}
-
-    <ul>
-        @foreach ( $books as $book )
-        <li>
-            Judul: <strong>{{ $book['title'] }}</strong> <br>
-            Penulis: {{ $book['author'] }} <br> 
-            Tahun Terbit: {{ $book['year'] }}
-        </li>
-        @endforeach
-    </ul>
-
-    @if($stock > 0)
-    <p>Stok tersedia</p>
+ 
+@foreach ( $books as $book )
+<ul>
+    <li>
+        <h3 style="color: blueviolet">{{ $book['title'] }}</h3>
+        <p>Author: {{ $book['author'] }}</p>
+        <p>Year Published: {{ $book['year'] }}</p>
+        @if($book['stock'] > 0)
+        <p style="color: green;">Stock available: {{ $book['stock'] }}</p>
     @else
-    <p>Buku sedang habis.</p>
+        <p style="color: red;">Book is currently out of stock.</p>
     @endif
+    </li> 
+</ul>
+ <hr>
+    
+@endforeach
+
 @endsection
