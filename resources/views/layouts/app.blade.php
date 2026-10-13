@@ -22,6 +22,8 @@
         @yield('content')
     </main>
     <footer>
+        <br>
+        <hr>
         <p>&copy; {{ date('Y') }} Sistem Informasi Perpustakaan. All rights reserved.</p>
     </footer>
 </body>
