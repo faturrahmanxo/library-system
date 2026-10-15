@@ -16,7 +16,6 @@ class BookController extends Controller
         $description = 'Berisi daftar buku yang tersedia di perpustakaan';
         $books = Book::all();
 
-        // Pastikan 'title' dan 'description' dimasukkan ke dalam compact()
         return view('books.index', compact('title', 'description', 'books'));
     }
 
@@ -33,14 +32,18 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        Book::create([
-            'title' => $request->title,
-            'author' => $request->author,
-            'year' => $request->year,
-            'stock' => $request->stock,
+        $validated = $request->validate([
+            'title' => 'required|string|min:2|max:255',
+            'author' => 'required|string|min:2|max:255|regex:/^[a-zA-Z\s]+$/',
+            'year' => 'required|integer|min:1900|max:' . date('Y'),
+            'stock' => 'required|integer|min:0|max:1000',
         ]);
 
-        return redirect()->route('books.index');
+        Book::create($validated);
+
+        return redirect()
+            ->route('books.index')
+            ->with('success', 'Data buku berhasil ditambahkan.');
     }
 
     /**

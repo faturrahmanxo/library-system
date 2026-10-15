@@ -3,14 +3,29 @@
 @section('title', $title)
 
 @section('content')
-    <h1>{{ $title }}</h1>
+    <h2>{{ $title }}</h2>
 
-    <div>
-        <h3>{{ $book->title }}</h3>
-        <p><strong>Penulis:</strong> {{ $book->author }}</p>
-        <p><strong>Tahun Terbit:</strong> {{ $book->year }}</p>
-        <p><strong>Stok:</strong> {{ $book->stock }}</p>
-    </div>
+    <table border="1" cellpadding="8" cellspacing="0">
+        <tr>
+            <th align="left">Judul Buku</th>
+            <td>{{ $book->title }}</td>
+        </tr>
+        <tr>
+            <th align="left">Penulis</th>
+            <td>{{ $book->author }}</td>
+        </tr>
+        <tr>
+            <th align="left">Tahun Terbit</th>
+            <td>{{ $book->year }}</td>
+        </tr>
+        <tr>
+            <th align="left">Stok</th>
+            <td>{{ $book->stock }}</td>
+        </tr>
+    </table>
 
-    <a href="{{ route('books.index') }}">Kembali ke Daftar Buku</a>
+    <p>
+        <a href="{{ route('books.edit', $book) }}">Edit Buku</a> | 
+        <a href="{{ route('books.index') }}">Kembali ke Daftar Buku</a>
+    </p>
 @endsection
