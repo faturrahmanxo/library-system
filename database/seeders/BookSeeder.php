@@ -13,41 +13,39 @@ class BookSeeder extends Seeder
      */
     public function run(): void
     {
-        $books = [
-            [
-                "title" => "Pemrograman PHP",
-                "author" => "Budi",
-                "year" => 2024,
-                "stock" => 5,
-            ],
-            [
-                "title" => "Laravel untuk Pemula",
-                "author" => "Michael",
-                "year" => 2025,
-                "stock" => 3,
-            ],
-            [
-                "title" => "Basis Data",
-                "author" => "Nana",
-                "year" => 2025,
-                "stock" => 2,
-            ],
-            [
-                "title" => "Algoritma dan Pemrograman",
-                "author" => "James",
-                "year" => 2023,
-                "stock" => 4,
-            ],
-            [
-                "title" => "Pemrograman Berorientasi Objek",
-                "author" => "Rangga",
-                "year" => 2022,
-                "stock" => 6,
-            ]
-        ];
+        Book::create([
+            'title' => 'Pemrograman PHP',
+            'author' => 'Andi',
+            'year' => 2024,
+            'stock' => 5,
+        ]);
 
-        foreach ($books as $book) {
-            Book::create($book);
-        }
+        Book::create([
+            'title' => 'Laravel untuk Pemula',
+            'author' => 'Budi Raharjo',
+            'year' => 2023,
+            'stock' => 8,
+        ]);
+
+        Book::create([
+            'title' => 'Basis Data',
+            'author' => 'Abdul Kadir',
+            'year' => 2022,
+            'stock' => 4,
+        ]);
+
+        Book::create([
+            'title' => 'Algoritma dan Pemrograman',
+            'author' => 'Rosa A.S.',
+            'year' => 2023,
+            'stock' => 6,
+        ]);
+
+        Book::create([
+            'title' => 'Pemrograman Berbasis Web',
+            'author' => 'Bambang Hariyanto',
+            'year' => 2024,
+            'stock' => 10,
+        ]);
     }
 }

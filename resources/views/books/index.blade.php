@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $title)
+{{-- @section('title', $title) --}}
 
 @section('content')
     @if (session('success'))
@@ -17,6 +17,7 @@
                 <th>No</th>
                 <th>Judul Buku</th>
                 <th>Penulis</th>
+                <th>Kategori</th> {{-- 1. Tambahkan header Kategori di sini --}}
                 <th>Tahun Terbit</th>
                 <th>Stok</th>
                 <th>Aksi</th>
@@ -28,6 +29,7 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $book->title }}</td>
                     <td>{{ $book->author }}</td>
+                    <td>{{ $book->category?->name ?? 'Belum ada kategori' }}</td> {{-- 2. Tambahkan isi Kategori di sini --}}
                     <td>{{ $book->year }}</td>
                     <td>{{ $book->stock }}</td>
                     <td>
@@ -42,7 +44,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="6" align="center">Belum ada data buku.</td>
+                    <td colspan="7" align="center">Belum ada data buku.</td> {{-- 3. Ubah colspan menjadi 7 --}}
                 </tr>
             @endforelse
         </tbody>

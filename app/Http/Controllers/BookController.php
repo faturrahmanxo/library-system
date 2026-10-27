@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Book;
+use App\Models\Category;
 
 class BookController extends Controller
 {
@@ -12,11 +13,10 @@ class BookController extends Controller
      */
     public function index()
     {
-        $title = 'Daftar Buku';
-        $description = 'Berisi daftar buku yang tersedia di perpustakaan';
-        $books = Book::all();
+        $title = 'Daftar Buku'; // Aktifkan agar variabel $title di index.blade.php tidak error
+        $books = Book::with('category')->get();
 
-        return view('books.index', compact('title', 'description', 'books'));
+        return view('books.index', compact('title', 'books'));
     }
 
     /**
@@ -24,7 +24,8 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('books.create');
+        $categories = Category::orderBy('name')->get();
+        return view('books.create', compact('categories'));
     }
 
     /**
@@ -37,6 +38,7 @@ class BookController extends Controller
             'author' => 'required|string|min:2|max:255|regex:/^[a-zA-Z\s]+$/',
             'year' => 'required|integer|min:1900|max:' . date('Y'),
             'stock' => 'required|integer|min:0|max:1000',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
         Book::create($validated);
@@ -60,7 +62,8 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        return view('books.edit', compact('book'));
+        $categories = Category::orderBy('name')->get();
+        return view('books.edit', compact('book', 'categories'));
     }
 
     /**
@@ -68,14 +71,22 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        $book->update([
-            'title' => $request->title,
-            'author' => $request->author,
-            'year' => $request->year,
-            'stock' => $request->stock,
+        // 1. Tambahkan validasi lengkap termasuk category_id
+        $validated = $request->validate([
+            'title' => 'required|string|min:2|max:255',
+            'author' => 'required|string|min:2|max:255|regex:/^[a-zA-Z\s]+$/',
+            'year' => 'required|integer|min:1900|max:' . date('Y'),
+            'stock' => 'required|integer|min:0|max:1000',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
-        return redirect()->route('books.index');
+        // 2. Simpan menggunakan data terpopulasi $validated
+        $book->update($validated);
+
+        // 3. Sertakan pesan sukses saat redirect
+        return redirect()
+            ->route('books.index')
+            ->with('success', 'Data buku berhasil diperbarui.');
     }
 
     /**
@@ -84,6 +95,9 @@ class BookController extends Controller
     public function destroy(Book $book)
     {
         $book->delete();
-        return redirect()->route('books.index');
+
+        return redirect()
+            ->route('books.index')
+            ->with('success', 'Buku berhasil dihapus.');
     }
 }
