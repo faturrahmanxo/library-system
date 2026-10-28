@@ -3,10 +3,6 @@
 {{-- @section('title', $title) --}}
 
 @section('content')
-    @if (session('success'))
-        <p>{{ session('success') }}</p>
-    @endif
-
     <p>
         <a href="{{ route('books.create') }}">+ Tambah Buku</a>
     </p>
