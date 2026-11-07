@@ -31,11 +31,17 @@
                     <td>
                         <a href="{{ route('books.show', $book) }}">Lihat Detail</a> |
                         <a href="{{ route('books.edit', $book) }}">Edit</a> |
-                        <form action="{{ route('books.destroy', $book) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus buku {{ $book->title }}?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit">Hapus</button>
-                        </form>
+                    @can('delete', $book)
+                    <form action="{{ route('books.destroy', $book->id) }}"
+                        method="POST"
+                        onsubmit="return confirm('Yakin ingin menghapus buku ini?')">
+
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit">Delete</button>
+                    </form>
+                    @endcan
                     </td>
                 </tr>
             @empty

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Book;
+use App\Models\Category;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
@@ -10,9 +12,11 @@ class DashboardController extends Controller
     {
         $title = 'Library System Dashboard';
         $description = 'Selamat datang di Sistem Informasi Perpustakaan.';
-        $books = 'Jumlah Buku: 5';
-        $members = 'Jumlah Members: 10';
-        $categories = 'Jumlah Kategori: 3';
+
+        $books = Book::count();
+        $members = User::count();
+        $categories = Category::count();
+
         return view('dashboard.index', compact('title', 'description', 'books', 'members', 'categories'));
     }
 }

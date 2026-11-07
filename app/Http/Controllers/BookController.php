@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Category;
+use Illuminate\Support\Facades\Gate;
 
 class BookController extends Controller
 {
@@ -24,8 +25,12 @@ class BookController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create', Book::class);
+
+        $title = 'Tambah Buku';
         $categories = Category::orderBy('name')->get();
-        return view('books.create', compact('categories'));
+
+        return view('books.create', compact('title', 'categories'));
     }
 
     /**
@@ -53,6 +58,8 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
+        Gate::authorize('view', $book);
+
         $title = 'Detail Buku';
         return view('books.show', compact('title', 'book'));
     }
@@ -62,6 +69,8 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
+        Gate::authorize('update', $book);
+
         $categories = Category::orderBy('name')->get();
         return view('books.edit', compact('book', 'categories'));
     }
@@ -71,6 +80,8 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
+        Gate::authorize('update', $book);
+
         // 1. Tambahkan validasi lengkap termasuk category_id
         $validated = $request->validate([
             'title' => 'required|string|min:2|max:255',
@@ -94,6 +105,8 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
+        Gate::authorize('delete', $book);
+        
         $book->delete();
 
         return redirect()
